@@ -22,5 +22,13 @@ pipeline {
                 }
             }
         }
+        stage('trivy'){
+            steps{
+                script{
+                    bat 'docker run -v /var/run/docker.sock:/var/run/docker.sock -v $HOME/Library/Caches:/root/.cache/ aquasec/trivy:0.53.0 image nginx:latest'
+                }
+            }
+        }
+        
     }
 }
