@@ -26,10 +26,11 @@ pipeline {
         stage('trivy'){
             steps{
                 script{
-                    def dockerCommand = "docker run -v /var/run/docker.sock:/var/run/docker.sock -v $HOME/Library/Caches:/root/.cache/ aquasec/trivy:0.53.0 image python:3.4-alpine"
-                    
-                    // Execute the docker command
-                    bat dockerCommand
+                     bat '''
+                    docker run -v \\var\\run\\docker.sock:\\var\\run\\docker.sock ^
+                               -v %HOME%\\Library\\Caches:\\root\\.cache\\ ^
+                               aquasec\\trivy:0.53.0 image python:3.4-alpine
+                '''
                 }
             }
         }
