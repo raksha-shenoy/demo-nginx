@@ -19,6 +19,7 @@ pipeline {
                 script {
                     // Build Docker image using Docker Pipeline plugin
                     docker.build("${DOCKER_IMAGE_TAG}", "-f ${DOCKERFILE_PATH} .")
+                    bat "docker images"
                 }
             }
         }
