@@ -4,7 +4,7 @@ pipeline {
     environment {
         // Define environment variables if needed
         DOCKERFILE_PATH = 'C:\\Users\\RakshaShenoy\\demo-nginx\\Dockerfile' // Update this with your Dockerfile path
-        DOCKER_IMAGE_TAG = 'nginx:latest' // Update with your desired image name and tag
+        DOCKER_IMAGE_TAG = 'raksha:latest' // Update with your desired image name and tag
     }
 
     stages {
@@ -26,7 +26,7 @@ pipeline {
         stage('trivy'){
             steps{
                 script{
-                    bat "docker run -v \\var\\run\\docker.sock:\\var\\run\\docker.sock -v $HOME\\Library\\Caches:\\root\\.cache\\ aquasec\\trivy:0.53.0 image nginx:latest"
+                    bat 'docker run -v \\var\\run\\docker.sock:\\var\\run\\docker.sock -v $HOME\\Library\\Caches:\\root\\.cache\\ aquasec\\trivy:0.53.0 image python:3.4-alpine'
                }
             }
         }
