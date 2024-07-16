@@ -40,7 +40,7 @@ pipeline {
         // Define Docker registry URL
         DOCKER_REGISTRY = 'docker.io'
         // Define Docker image details
-        IMAGE_NAME = 'rakshashenoy/keer'
+        IMAGE_NAME = 'raksha'
         IMAGE_TAG = 'latest'
         // Define Dockerfile path (if different from Jenkins workspace)
         DOCKERFILE_PATH = 'C:\\Users\\RakshaShenoy\\demo-nginx\\Dockerfile'  // This is optional if Dockerfile is in the root of your workspace
@@ -53,7 +53,7 @@ pipeline {
             steps {
                 script {
                     // Build Docker image
-                    sh "docker build -t ${IMAGE_NAME}:${IMAGE_TAG} ${DOCKERFILE_PATH}"
+                    sh "docker build -t ${IMAGE_NAME}:${IMAGE_TAG} ${DOCKERFILE_PATH} ."
                 }
             }
         }
