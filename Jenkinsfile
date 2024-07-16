@@ -53,7 +53,7 @@ pipeline {
             steps {
                 script {
                     // Build Docker image
-                    sh "docker build -t ${IMAGE_NAME}:${IMAGE_TAG} ${DOCKERFILE_PATH} ."
+                    bat "docker build -t ${IMAGE_NAME}:${IMAGE_TAG} ${DOCKERFILE_PATH} ."
                 }
             }
         }
