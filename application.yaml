@@ -7,7 +7,7 @@ spec:
   project: default
 
   source:
-    repoURL: https://github.com/raksha-shenoy/new-demo-jenkins.git
+    repoURL: https://github.com/raksha-shenoy/demo-nginx.git
     targetRevision: HEAD
     path: dev
   destination: 
