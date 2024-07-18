@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
       - name: demo-nginx
-        image: rakshashenoy/ng:16
+        image: rakshashenoy/ng:18
         ports:
         - containerPort: 80
