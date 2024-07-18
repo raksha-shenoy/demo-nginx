@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-nginx
+spec:
+  selector:
+    matchLabels:
+      app: demo-nginx
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: demo-nginx
+    spec:
+      containers:
+      - name: demo-nginx
+        image: rakshashenoy/ng:16
+        ports:
+        - containerPort: 80
