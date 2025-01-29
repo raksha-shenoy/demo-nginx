@@ -103,14 +103,14 @@ pipeline {
     }
 
     stages {
-        stage('Set Alias') {
-            steps {
-                script {
-                    // Set the alias for this session
-                    bat "alias docker=podman"
-                }
-            }
-        }
+        // stage('Set Alias') {
+        //     steps {
+        //         script {
+        //             // Set the alias for this session
+        //             bat "alias docker=podman"
+        //         }
+        //     }
+        // }
         stage('SonarQube Scan') {
             steps {
                 script{
@@ -127,8 +127,8 @@ pipeline {
                 script {
                     // Build Docker image using Docker Pipeline plugin
                     // dockerImage = docker.build("${DOCKER_IMAGE_TAG}", "-f ${DOCKERFILE_PATH} .")
-                    bat "docker build -t ${DOCKER_IMAGE_NAME} ."
-                    bat "docker images"
+                    bat "podman build -t ${DOCKER_IMAGE_NAME} ."
+                    bat "podman images"
                     //docker.tag dockerImage:latest docker.io/rakshashenoy/keer:latest
                     // docker.tag(dockerImage, 'rakshashenoy/samplerepo/keer:latest')
 
@@ -142,11 +142,11 @@ pipeline {
                     // Build Docker image using Docker Pipeline plugin
                     docker.withRegistry( 'https://docker.io', registryCredential) { 
                      // Tag the Docker image
-                    bat "docker tag ${DOCKER_IMAGE_NAME} ${REGISTRY_IMAGE}"
+                    bat "podman tag ${DOCKER_IMAGE_NAME} ${REGISTRY_IMAGE}"
                     // dockerImage.push()
                     // bat "docker push rakshashenoy/keer:tagname"
                     // bat "docker push ${dockerImage}"
-                    bat "docker push ${REGISTRY_IMAGE}"
+                    bat "podman push ${REGISTRY_IMAGE}"
                     }
                 }
             }
