@@ -127,6 +127,8 @@ pipeline {
                 script {
                     // Build Docker image using Docker Pipeline plugin
                     // dockerImage = docker.build("${DOCKER_IMAGE_TAG}", "-f ${DOCKERFILE_PATH} .")
+                    bat "podman machine init"
+                    bat "podman machine start"
                     bat "podman build -t ${DOCKER_IMAGE_NAME} ."
                     bat "podman images"
                     //docker.tag dockerImage:latest docker.io/rakshashenoy/keer:latest
