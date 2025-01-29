@@ -143,7 +143,7 @@ pipeline {
                     docker.withRegistry( 'https://docker.io', registryCredential) { 
                      // Tag the Docker image
                     bat "podman tag ${DOCKER_IMAGE_NAME} ${REGISTRY_IMAGE}"
-                    // dockerImage.push()
+                    // dockerImage.push()nnn
                     // bat "docker push rakshashenoy/keer:tagname"
                     // bat "docker push ${dockerImage}"
                     bat "podman push ${REGISTRY_IMAGE}"
