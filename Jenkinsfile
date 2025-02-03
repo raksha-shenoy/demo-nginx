@@ -110,7 +110,7 @@ pipeline {
             steps {
                 script {
                     // Set the alias for this session
-                    bat "alias podman=docker"
+                    bat "set podman=docker"
                 }
             }
         }
