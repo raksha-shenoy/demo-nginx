@@ -138,6 +138,7 @@ pipeline {
 
                     // bat "podman build -t ${DOCKER_IMAGE_NAME} ."
                     bat "podman build -t ${DOCKER_REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG} ."
+                    bat "podman run --rm ${DOCKER_REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG}"
                     // bat "podman --version"
                     // bat "podman build -f ${DOCKERFILE_PATH} -t ${DOCKER_IMAGE_NAME} ."
                     bat "podman images"
