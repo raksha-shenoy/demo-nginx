@@ -106,14 +106,14 @@ pipeline {
     }
 
     stages {
-        // stage('Set Alias') {
-        //     steps {
-        //         script {
-        //             // Set the alias for this session
-        //             bat "alias docker=podman"
-        //         }
-        //     }
-        // }
+        stage('Set Alias') {
+            steps {
+                script {
+                    // Set the alias for this session
+                    bat "alias podman=docker"
+                }
+            }
+        }
         // stage('SonarQube Scan') {
         //     steps {
         //         script{
