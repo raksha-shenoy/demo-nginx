@@ -106,14 +106,14 @@ pipeline {
     }
 
     stages {
-        stage('Set Alias') {
-            steps {
-                script {
-                    // Set the alias for this session
-                    bat "set podman=docker"
-                }
-            }
-        }
+        // stage('Set Alias') {
+        //     steps {
+        //         script {
+        //             // Set the alias for this session
+        //             bat "set podman=docker"
+        //         }
+        //     }
+        // }
         // stage('SonarQube Scan') {
         //     steps {
         //         script{
@@ -137,57 +137,59 @@ pipeline {
 // }
 
                     // bat "podman build -t ${DOCKER_IMAGE_NAME} ."
-                    bat "podman build -t ${DOCKER_REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG} ."
-                    bat "podman run --rm ${DOCKER_REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG}"
+                    // bat "podman build -t ${DOCKER_REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG} ."
+                    // bat "podman run --rm ${DOCKER_REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG}"
                     // bat "podman --version"
                     // bat "podman build -f ${DOCKERFILE_PATH} -t ${DOCKER_IMAGE_NAME} ."
-                    bat "podman images"
+                    // bat "podman images"
                     //docker.tag dockerImage:latest docker.io/rakshashenoy/keer:latest
                     // docker.tag(dockerImage, 'rakshashenoy/samplerepo/keer:latest')
+                    bat "docker build -t ${DOCKER_IMAGE_NAME} ."
+                    bat "docker images"
 
                 }
             }
         }
 
-        // stage('Push Docker Image') {
-        //     steps {
-        //         script {
-        //             // Build Docker image using Docker Pipeline plugin
-        //             docker.withRegistry( 'https://docker.io', registryCredential) { 
-        //              // Tag the Docker image
-        //             bat "podman tag ${DOCKER_IMAGE_NAME} ${REGISTRY_IMAGE}"
-        //             // dockerImage.push()nnn
-        //             // bat "docker push rakshashenoy/keer:tagname"
-        //             // bat "docker push ${dockerImage}"
-        //             bat "podman push ${REGISTRY_IMAGE}"
-        //             }
-        //         }
-        //     }
-        // }
-        stage('Login to Docker Hub') {
+        stage('Push Docker Image') {
             steps {
                 script {
-                    // Login to Docker Hub using credentials stored in Jenkins
-                    withCredentials([usernamePassword(credentialsId: 'DOCKER_CREDENTIAL', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-                        bat "podman login --username ${DOCKER_USERNAME} --password ${DOCKER_PASSWORD} docker.io"
+                    // Build Docker image using Docker Pipeline plugin
+                    docker.withRegistry( 'https://docker.io', registryCredential) { 
+                     // Tag the Docker image
+                    bat "docker tag ${DOCKER_IMAGE_NAME} ${REGISTRY_IMAGE}"
+                    // dockerImage.push()nnn
+                    // bat "docker push rakshashenoy/keer:tagname"
+                    // bat "docker push ${dockerImage}"
+                    bat "docker push ${REGISTRY_IMAGE}"
                     }
                 }
             }
         }
+        // stage('Login to Docker Hub') {
+        //     steps {
+        //         script {
+        //             // Login to Docker Hub using credentials stored in Jenkins
+        //             withCredentials([usernamePassword(credentialsId: 'DOCKER_CREDENTIAL', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+        //                 bat "podman login --username ${DOCKER_USERNAME} --password ${DOCKER_PASSWORD} docker.io"
+        //             }
+        //         }
+        //     }
+        // }
 
-        stage('Push Image to Docker Hub') {
-            steps {
-                script {
-                    // Push the image to Docker Hub
-                     bat "podman tag ${IMAGE_NAME}:${IMAGE_TAG} ${DOCKER_REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG}"
+        // stage('Push Image to Docker Hub') {
+        //     steps {
+        //         script {
+        //             // Push the image to Docker Hub
+        //              bat "podman tag ${IMAGE_NAME}:${IMAGE_TAG} ${DOCKER_REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG}"
 
-                    // Push the tagged image to Docker Hub using Podman
-                     bat "podman push ${DOCKER_REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG}"
-                    // bat "podman tag ${IMAGE_NAME} ${REGISTRY_IMAGE}"
-                    // bat "podman push ${REGISTRY_IMAGE}"
+        //             // Push the tagged image to Docker Hub using Podman
+        //              bat "podman push ${DOCKER_REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG}"
+        //             // bat "podman tag ${IMAGE_NAME} ${REGISTRY_IMAGE}"
+        //             // bat "podman push ${REGISTRY_IMAGE}"
                     
-                }
-            }
-        }
+        //         }
+        //     }
+        // }
     }
 }
