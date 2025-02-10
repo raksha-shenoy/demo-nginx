@@ -144,8 +144,8 @@ pipeline {
                     // bat "podman images"
                     //docker.tag dockerImage:latest docker.io/rakshashenoy/keer:latest
                     // docker.tag(dockerImage, 'rakshashenoy/samplerepo/keer:latest')
-                    bat "docker build -t ${DOCKER_IMAGE_NAME} ."
-                    bat "docker images"
+                    bat "podman build -t ${DOCKER_IMAGE_NAME} ."
+                    bat "podman images"
 
                 }
             }
@@ -157,11 +157,11 @@ pipeline {
                     // Build Docker image using Docker Pipeline plugin
                     docker.withRegistry( 'https://docker.io', registryCredential) { 
                      // Tag the Docker image
-                    bat "docker tag ${DOCKER_IMAGE_NAME} ${REGISTRY_IMAGE}"
+                    bat "podman tag ${DOCKER_IMAGE_NAME} ${REGISTRY_IMAGE}"
                     // dockerImage.push()nnn
                     // bat "docker push rakshashenoy/keer:tagname"
                     // bat "docker push ${dockerImage}"
-                    bat "docker push ${REGISTRY_IMAGE}"
+                    bat "podman push ${REGISTRY_IMAGE}"
                     }
                 }
             }
